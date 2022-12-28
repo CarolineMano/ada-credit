@@ -1,0 +1,2 @@
+name,username,salt,lastLoggedIn,active,passwordHash
+Admin,user,$2a$11$1dKoLtOcPPFxOwRjqvk5o.,01/01/0001 00:00:00,True,$2a$11$1dKoLtOcPPFxOwRjqvk5o.n7TDtlyyqi2uBxJWNbtvDuxyh44wJ66
