@@ -1,12 +1,15 @@
 using System;
 using AdaCredit.Entities;
 using AdaCredit.Persistence;
+using AdaCredit.Services;
 
 namespace AdaCredit.UseCases
 {
     public static class Login
     {
-        public static EmployeeRepository _employeeRepository = new EmployeeRepository();
+        private static LoginService _loginService = new LoginService();
+        private static EmployeeService _employeeService = new EmployeeService();
+        public static Employee? LoggedInUser { get; private set; }
         public static void Show()
         {
             var loggedIn = false;
@@ -17,39 +20,29 @@ namespace AdaCredit.UseCases
 
                 Console.Write("Digite o nome do usuário: ");
                 var username = Console.ReadLine();
-                
+
                 Console.Write("Digite a senha do usuário: ");
                 var password = Console.ReadLine();
 
-                var employee = _employeeRepository.GetEmployeeByUsername(username);
+                LoggedInUser = _loginService.ValidateCredentials(username, password);
 
-                if (employee == null)
-                {
-                    Console.WriteLine("Usuário informado não existe.");
-                    Console.ReadKey();
-                    continue;
-                }
-
-                if (!ValidatePassword(employee, password))
-                {
-                    Console.WriteLine("Senha inválida.");
-                    Console.ReadKey();
-                    continue;
-                } 
-
-                Console.WriteLine("Usuário e senha válidos!");
-                loggedIn = true;
+                loggedIn = LoggedInUser is default(Employee) ? false : true;
 
             } while (!loggedIn);
 
             Console.ReadKey();
-        }
 
-        private static bool ValidatePassword(Employee employee, string password)
-        {
-            var hashedPassword = BC.HashPassword(password, employee.Salt);
-            
-            return hashedPassword == employee.PasswordHash;
+            if (LoggedInUser.FirstLogin == true)
+            {
+                Console.Clear();
+
+                Console.WriteLine($"***Você deve trocar a senha padrão do usuário: {LoggedInUser.Username}***");
+                Console.WriteLine("Digite a nova senha desejada: ");
+
+                var password = Console.ReadLine();
+
+                _loginService.UpdatePasswordFirstLogin(LoggedInUser, password);
+            }
         }
     }
 }

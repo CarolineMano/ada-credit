@@ -4,12 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using AdaCredit.Entities;
 using AdaCredit.Persistence;
+using AdaCredit.UseCases;
 
 namespace AdaCredit.Services
 {
     public class EmployeeService
     {
-        public static EmployeeRepository _employeeRepository = new EmployeeRepository();
+        private static EmployeeRepository _employeeRepository = new EmployeeRepository();
 
         public void AddNewEmployee(string name, string username)
         {
@@ -40,6 +41,23 @@ namespace AdaCredit.Services
             _employeeRepository.Save();
 
             Console.WriteLine("Funcionário cadastrado com sucesso");
+
+            Console.ReadKey();
+        }
+
+        public void UpdatePassword(string password)
+        {
+            if (String.IsNullOrEmpty(password))
+            {
+                Console.WriteLine("Senha não pode ser nula");
+                Console.ReadKey();
+                return;
+            }
+
+            Login.LoggedInUser.UpdatePassword(password);
+            _employeeRepository.Save();
+
+            Console.WriteLine("Senha alterada com sucesso");
 
             Console.ReadKey();
         }

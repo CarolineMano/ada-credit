@@ -15,6 +15,11 @@ namespace AdaCredit.Entities
             Name = name;
             Active = true;
         }
+        public Person(string name, bool active)
+        {
+            Name = name;
+            Active = active;
+        }
 
         public void Disable()
         {

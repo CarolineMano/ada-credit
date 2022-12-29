@@ -38,7 +38,6 @@ namespace AdaCredit.Persistence
         public void AddNewEmployee(Employee employee)
         {
             _employees.Add(employee);
-            // Save();
         }
 
         public void Save()
