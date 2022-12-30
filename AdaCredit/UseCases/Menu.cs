@@ -28,7 +28,7 @@ namespace AdaCredit.UseCases
             var subMenuEmployee = new ConsoleMenu(args, level: 1)
             .Add("Cadastrar novo funcionário", () => AddNewEmployee.Show())
             .Add("Alterar senha de funcionário", () => UpdateEmployeePassword.Show())
-            .Add("Desativar cadastro de funcionário", () => SomeAction("Sub_Four"))
+            .Add("Desativar cadastro de funcionário", () => DeleteEmployee.Show())
             .Add("Voltar", ConsoleMenu.Close)
             .Configure(config =>
             {

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AdaCredit.Dtos;
 using AdaCredit.Entities;
 using AdaCredit.Persistence;
 using AdaCredit.UseCases;
@@ -62,7 +63,24 @@ namespace AdaCredit.Services
             Console.ReadKey();
         }
 
-        private bool IsUsernameValid(string username)
+        public bool DeleteEmployee(string username)
+        {
+            var employee =_employeeRepository.GetEmployeeByUsername(username);
+
+            if (employee == null)
+            {
+                Console.WriteLine("Funcionário não existe");
+                Console.ReadKey();
+                return false;
+            }                
+
+            employee.Disable();
+            _employeeRepository.Save();
+
+            return true;
+        }
+
+        public bool IsUsernameValid(string username)
         {
             var existingEmployee = _employeeRepository.GetEmployeeByUsername(username);
 
@@ -70,6 +88,23 @@ namespace AdaCredit.Services
                 return false;
 
             return true;
+        }
+
+        public List<EmployeeDto> GetAllActiveEmployees()
+        {
+            var activeEmployeesDto = new List<EmployeeDto>();
+            var activeEmployees = _employeeRepository.GetAllActiveEmployees();
+
+            foreach (var employee in activeEmployees)
+            {
+                activeEmployeesDto.Add(new EmployeeDto
+                {
+                    Name = employee.Name,
+                    Username = employee.Username
+                });
+            }
+            
+            return activeEmployeesDto;
         }
     }
 }

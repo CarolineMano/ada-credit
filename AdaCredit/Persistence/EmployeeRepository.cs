@@ -23,7 +23,7 @@ namespace AdaCredit.Persistence
                 HeaderValidated = null
             };
 
-            using (var reader = new StreamReader("D:\\Meus Documentos\\Github\\code-at-cs-ada-credit\\AdaCredit\\Database\\Employees.csv"))
+            using (var reader = new StreamReader("../AdaCredit/Database/Employees.csv"))
             using (var csv = new CsvReader(reader, _config))
             {
                 _employees = csv.GetRecords<Employee>().ToList();
@@ -40,9 +40,23 @@ namespace AdaCredit.Persistence
             _employees.Add(employee);
         }
 
+        public List<Employee> GetAllActiveEmployees()
+        {
+            // var activeEmployees = new List<Employee>();
+
+            // foreach (var employee in _employees)
+            // {
+            //     activeEmployees.Add(employee);
+            // }
+
+            // return activeEmployees.AsReadOnly().ToList();
+
+            return _employees.Where(e => e.Active == true).ToList();
+        }
+
         public void Save()
         {
-            using (var writer = new StreamWriter("D:\\Meus Documentos\\Github\\code-at-cs-ada-credit\\AdaCredit\\Database\\Employees.csv"))
+            using (var writer = new StreamWriter("../AdaCredit/Database/Employees.csv"))
             using (var csv = new CsvWriter(writer, _config))
             {
                 csv.Context.RegisterClassMap<EmployeeMap>();
