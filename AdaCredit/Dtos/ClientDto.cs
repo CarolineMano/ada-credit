@@ -10,11 +10,13 @@ namespace AdaCredit.Dtos
     {
         public string? Document { get; set; }
         public Account? Account { get; set; }
+        public string Email { get; set; }
         public bool Active { get; set; }
 
         public override string ToString()
         {
-            return $"Nome: {Name} {Environment.NewLine}CPF: {Document}{Environment.NewLine}Agência: {Account.Branch} Conta: {Account.Number}{Environment.NewLine}Ativo: {Active}";
+            return $"Nome: {Name} {Environment.NewLine}CPF: {Document}{Environment.NewLine}Email: {Email}" +
+                $"{Environment.NewLine}Agência: {Account.Branch} Conta: {Account.Number}{Environment.NewLine}Ativo: {Active}";
         }
     }
 }

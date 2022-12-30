@@ -6,7 +6,7 @@ using AdaCredit.Services;
 
 namespace AdaCredit.UseCases
 {
-    public static class AddNewClient
+    public static class UpdateClient
     {
         public static ClientService _clientService = new ClientService();
 
@@ -15,25 +15,26 @@ namespace AdaCredit.UseCases
             try
             {
                 Console.Clear();
-                Console.WriteLine("***Cadastrar Novo Cliente***");
+                Console.WriteLine("***Atualizar cadastro de Cliente***");
 
-                Console.Write("Digite o nome do cliente: ");
-                var name = Console.ReadLine();
-
-                Console.Write("Digite o CPF do cliente: ");
+                Console.Write("Digite o CPF do cliente a ser atualizado: ");
                 var document = Console.ReadLine();
 
-                Console.Write("Digite o email do cliente: ");
+                Console.WriteLine($"{Environment.NewLine}*DADOS DO CLIENTE*");
+                Console.WriteLine(_clientService.GetClientByDocument(document));
+
+                Console.WriteLine($"{Environment.NewLine}Digite o novo e-mail desejado: ");
                 var email = Console.ReadLine();
 
-                _clientService.AddNewClient(name, document, email);
+                _clientService.UpdateClient(document, email);
 
-                Console.WriteLine($"Cliente {name} cadastrado com sucesso!");
+                Console.WriteLine($"Cadastro atualizado com sucesso!");
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
+
             Console.ReadKey();
         }
     }

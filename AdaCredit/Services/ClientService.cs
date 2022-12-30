@@ -13,7 +13,7 @@ namespace AdaCredit.Services
     {
         private static ClientRepository _clientRepository = new ClientRepository();
 
-        public void AddNewClient(string name, string document)
+        public void AddNewClient(string name, string document, string email)
         {
             if (String.IsNullOrEmpty(name))
                 throw new Exception("Nome não pode ser vazio");
@@ -21,10 +21,13 @@ namespace AdaCredit.Services
             if (!IsDocumentValid(document))
                 throw new Exception("CPF informado não é válido");
 
+            if (!IsEmailValid(email))
+                throw new Exception("Email em formato inválido");
+
             if (IsDocumentAlreadyUsed(document))
                 throw new Exception("Esse CPF já está cadastrado");
 
-            var newClient = CreateValidAccountNumber(name, document);
+            var newClient = CreateValidAccountNumber(name, document, email);
 
             _clientRepository.AddNewClient(newClient);
 
@@ -46,7 +49,8 @@ namespace AdaCredit.Services
                 Name = client.Name,
                 Document = client.Document,
                 Account = client.Account,
-                Active = client.Active
+                Active = client.Active,
+                Email = client.Email
             };
         }
 
@@ -65,7 +69,8 @@ namespace AdaCredit.Services
                 Name = client.Name,
                 Document = client.Document,
                 Account = client.Account,
-                Active = client.Active
+                Active = client.Active,
+                Email = client.Email
             };
         }
 
@@ -85,17 +90,34 @@ namespace AdaCredit.Services
             return true;
         }
 
-        private Client CreateValidAccountNumber(string name, string document)
+        public bool UpdateClient(string document, string email)
+        {
+            var client = _clientRepository.GetByDocument(document);
+
+            if (!IsEmailValid(email))
+                throw new Exception("Email informado é inválido.");
+
+            if (client is default(Client))
+                throw new Exception("Esse CPF não está cadastrado.");
+
+            client.Email = email;
+
+            _clientRepository.Save();
+
+            return true;
+        }
+
+        private Client CreateValidAccountNumber(string name, string document, string email)
         {
             var validAccount = _clientRepository.IsPersistanceEmpty();
             Client client;
 
             if (validAccount)
-                return new Client(name, document);
+                return new Client(name, document, email);
 
             do
             {
-                client = new Client(name, document);
+                client = new Client(name, document, email);
 
                 validAccount = _clientRepository.GetByAccountNumber(client.Account.Number) is default(Client) ? true : false;
             } while (!validAccount);
@@ -125,6 +147,14 @@ namespace AdaCredit.Services
 
             Regex reg = new Regex(pattern);
             return reg.IsMatch(accountNumber);
+        }
+
+        private bool IsEmailValid(string email)
+        {
+            string pattern = @"[a-zA-z0-9\.]+@[a-zA-z0-9\.]+\.[A-Za-z]+";
+
+            Regex reg = new Regex(pattern);
+            return reg.IsMatch(email);
         }
     }
 }

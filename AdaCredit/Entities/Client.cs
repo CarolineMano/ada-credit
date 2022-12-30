@@ -9,17 +9,20 @@ namespace AdaCredit.Entities
     {
         public string Document { get; private set; }
         public Account Account { get; set; }
+        public string Email { get; set; }
 
-        public Client(string name, string document) : base(name)
+        public Client(string name, string document, string email) : base(name)
         {
             Document = document;
             Account = new Account();
+            Email = email;
         }
 
-        public Client(string name, string document, string accountNumber, bool active) : base(name, active)
+        public Client(string name, string document, string accountNumber, bool active, string email) : base(name, active)
         {
             Document = document;
             Account = new Account(accountNumber);
+            Email = email;
         }
     }
 }

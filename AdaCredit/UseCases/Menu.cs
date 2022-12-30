@@ -26,7 +26,7 @@ namespace AdaCredit.UseCases
             var subMenuClient = new ConsoleMenu(args, level: 1)
             .Add("Cadastrar novo cliente", () => AddNewClient.Show())
             .Add("Consultar dados de cliente", subMenuGetClient.Show)
-            .Add("Alterar cadastro de cliente", () => SomeAction("Sub_Three"))
+            .Add("Alterar cadastro de cliente", () => UpdateClient.Show())
             .Add("Desativar cadastro de cliente", () => DeleteClient.Show())
             .Add("Voltar", ConsoleMenu.Close)
             .Configure(config =>
