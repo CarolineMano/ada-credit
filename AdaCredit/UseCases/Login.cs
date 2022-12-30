@@ -14,34 +14,46 @@ namespace AdaCredit.UseCases
         {
             var loggedIn = false;
 
-            do
+            try
             {
-                Console.Clear();
+                do
+                {
+                    Console.Clear();
 
-                Console.Write("Digite o nome do usuário: ");
-                var username = Console.ReadLine();
+                    Console.Write("Digite o nome do usuário: ");
+                    var username = Console.ReadLine();
 
-                Console.Write("Digite a senha do usuário: ");
-                var password = Console.ReadLine();
+                    Console.Write("Digite a senha do usuário: ");
+                    var password = Console.ReadLine();
 
-                LoggedInUser = _loginService.ValidateCredentials(username, password);
+                    LoggedInUser = _loginService.ValidateCredentials(username, password);
 
-                loggedIn = LoggedInUser is default(Employee) ? false : true;
+                    loggedIn = LoggedInUser is default(Employee) ? false : true;
 
-            } while (!loggedIn);
+                } while (!loggedIn);
 
-            Console.ReadKey();
+                Console.WriteLine("Usuário e senha válidos!");
+                Console.ReadKey();
 
-            if (LoggedInUser.FirstLogin == true)
+                if (LoggedInUser.FirstLogin == true)
+                {
+                    Console.Clear();
+
+                    Console.WriteLine($"***Você deve trocar a senha padrão do usuário: {LoggedInUser.Username}***");
+                    Console.WriteLine("Digite a nova senha desejada: ");
+
+                    var password = Console.ReadLine();
+
+                    _loginService.UpdatePasswordFirstLogin(LoggedInUser, password);
+
+                    Console.WriteLine("Senha alterada com sucesso");
+                    Console.ReadKey();
+                }
+            }
+            catch (Exception ex)
             {
-                Console.Clear();
-
-                Console.WriteLine($"***Você deve trocar a senha padrão do usuário: {LoggedInUser.Username}***");
-                Console.WriteLine("Digite a nova senha desejada: ");
-
-                var password = Console.ReadLine();
-
-                _loginService.UpdatePasswordFirstLogin(LoggedInUser, password);
+                Console.WriteLine(ex.Message);
+                Console.ReadKey();
             }
         }
     }

@@ -16,51 +16,27 @@ namespace AdaCredit.Services
         public void AddNewEmployee(string name, string username)
         {
             if (!IsUsernameValid(username))
-            {
-                Console.WriteLine("O username não está disponível");
-                Console.ReadKey();
-                return;
-            }
+                throw new Exception("O username não está disponível");
 
             if (String.IsNullOrEmpty(name))
-            {
-                Console.WriteLine("O nome não pode ser vazio");
-                Console.ReadKey();
-                return;
-            }
+                throw new Exception("O nome não pode ser vazio");
 
             if (String.IsNullOrEmpty(username))
-            {
-                Console.WriteLine("O username não pode ser vazio");
-                Console.ReadKey();
-                return;
-            }
+                throw new Exception("O username não pode ser vazio");
 
             var newEmployee = new Employee(name, username);
 
             _employeeRepository.AddNewEmployee(newEmployee);
             _employeeRepository.Save();
-
-            Console.WriteLine("Funcionário cadastrado com sucesso");
-
-            Console.ReadKey();
         }
 
         public void UpdatePassword(string password)
         {
             if (String.IsNullOrEmpty(password))
-            {
-                Console.WriteLine("Senha não pode ser nula");
-                Console.ReadKey();
-                return;
-            }
+                throw new Exception("Senha não pode ser nula");
 
             Login.LoggedInUser.UpdatePassword(password);
             _employeeRepository.Save();
-
-            Console.WriteLine("Senha alterada com sucesso");
-
-            Console.ReadKey();
         }
 
         public bool DeleteEmployee(string username)
@@ -68,11 +44,10 @@ namespace AdaCredit.Services
             var employee =_employeeRepository.GetEmployeeByUsername(username);
 
             if (employee == null)
-            {
-                Console.WriteLine("Funcionário não existe");
-                Console.ReadKey();
-                return false;
-            }                
+                throw new Exception("Funcionário não existe");             
+
+            if (!employee.Active)
+                throw new Exception("Funcionário já desativado");
 
             employee.Disable();
             _employeeRepository.Save();

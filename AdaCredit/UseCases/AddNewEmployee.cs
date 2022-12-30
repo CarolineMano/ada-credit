@@ -13,17 +13,27 @@ namespace AdaCredit.UseCases
 
         public static void Show()
         {
-            Console.Clear();
+            try
+            {
+                Console.Clear();
 
-            Console.WriteLine("***Cadastrar Novo Funcionário***");
+                Console.WriteLine("***Cadastrar Novo Funcionário***");
 
-            Console.Write("Digite o nome do funcionário: ");
-            var name = Console.ReadLine();
-            
-            Console.Write("Digite o username do funcionário: ");
-            var username = Console.ReadLine();
+                Console.Write("Digite o nome do funcionário: ");
+                var name = Console.ReadLine();
 
-            _employeeService.AddNewEmployee(name, username);            
+                Console.Write("Digite o username do funcionário: ");
+                var username = Console.ReadLine();
+
+                _employeeService.AddNewEmployee(name, username);
+
+                Console.Write("Funcionário cadastrado com sucesso!");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            Console.ReadKey();
         }
     }
 }

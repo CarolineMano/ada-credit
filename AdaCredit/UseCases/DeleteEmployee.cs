@@ -13,16 +13,26 @@ namespace AdaCredit.UseCases
 
         public static void Show()
         {
-            Console.Clear();
+            try
+            {
+                Console.Clear();
 
-            var activeEmployees = _employeeService.GetAllActiveEmployees();
-            ShowEmployees(activeEmployees);
+                var activeEmployees = _employeeService.GetAllActiveEmployees();
+                ShowEmployees(activeEmployees);
 
-            Console.WriteLine("Digite o username do funcionário que deseja deletar: ");
+                Console.WriteLine("Digite o username do funcionário que deseja deletar: ");
 
-            var username = Console.ReadLine();
+                var username = Console.ReadLine();
 
-            _employeeService.DeleteEmployee(username);
+                _employeeService.DeleteEmployee(username);
+
+                Console.WriteLine($"Funcionário {username} deletado com sucesso!");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            Console.ReadKey();
         }
 
         public static void ShowEmployees(List<EmployeeDto> employeeDtos)

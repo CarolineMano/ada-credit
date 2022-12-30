@@ -37,8 +37,6 @@ namespace AdaCredit.Services
                 return default(Employee);
             }
 
-            Console.WriteLine("Usuário e senha válidos!");
-
             loggedInUser.UpdateLastLoggedIn();
 
             _employeeRepository.Save();

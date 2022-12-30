@@ -11,14 +11,24 @@ namespace AdaCredit.UseCases
         public static EmployeeService _employeeService = new EmployeeService();
         public static void Show()
         {
-            Console.Clear();
+            try
+            {
+                Console.Clear();
 
-            Console.WriteLine($"***Trocar a senha do usuário: {Login.LoggedInUser.Username}***");
-            Console.WriteLine("Digite a nova senha desejada: ");
+                Console.WriteLine($"***Trocar a senha do usuário: {Login.LoggedInUser.Username}***");
+                Console.WriteLine("Digite a nova senha desejada: ");
 
-            var password = Console.ReadLine();
+                var password = Console.ReadLine();
 
-            _employeeService.UpdatePassword(password);
+                _employeeService.UpdatePassword(password);
+
+                Console.WriteLine("Senha alterada com sucesso");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            Console.ReadKey();
         }
     }
 }
