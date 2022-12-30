@@ -10,9 +10,22 @@ namespace AdaCredit.UseCases
     {
         public static void Show(string[] args)
         {
+            var subMenuGetClient = new ConsoleMenu(args, level: 2)
+            .Add("Pelo número da conta", () => GetClientByAccountNumber.Show())
+            .Add("Pelo CPF", () => GetClientByDocument.Show())
+            .Add("Voltar", ConsoleMenu.Close)
+            .Configure(config =>
+            {
+                config.Selector = "--> ";
+                config.EnableFilter = true;
+                config.Title = "Consulta de Clientes";
+                config.EnableBreadcrumb = true;
+                config.WriteBreadcrumbAction = titles => Console.WriteLine(string.Join(" / ", titles));
+            });
+
             var subMenuClient = new ConsoleMenu(args, level: 1)
             .Add("Cadastrar novo cliente", () => AddNewClient.Show())
-            .Add("Consultar dados de cliente", () => SomeAction("Sub_Two"))
+            .Add("Consultar dados de cliente", subMenuGetClient.Show)
             .Add("Alterar cadastro de cliente", () => SomeAction("Sub_Three"))
             .Add("Desativar cadastro de cliente", () => SomeAction("Sub_Four"))
             .Add("Voltar", ConsoleMenu.Close)

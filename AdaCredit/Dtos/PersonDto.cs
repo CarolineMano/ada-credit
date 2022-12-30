@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace AdaCredit.Dtos
 {
-    public class EmployeeDto : PersonDto
+    public class PersonDto
     {
-        public string? Username { get; set; }
+        public string? Name { get; set; }
     }
 }

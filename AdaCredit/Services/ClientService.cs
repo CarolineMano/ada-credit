@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using AdaCredit.Dtos;
 using AdaCredit.Entities;
 using AdaCredit.Persistence;
 
@@ -27,6 +29,44 @@ namespace AdaCredit.Services
             _clientRepository.AddNewClient(newClient);
 
             _clientRepository.Save();
+        }
+
+        public ClientDto GetClientByDocument(string document)
+        {
+            if (!IsDocumentValid(document))
+                throw new Exception("CPF informado não é válido");
+
+            if (!IsDocumentAlreadyUsed(document))
+                throw new Exception("Esse CPF não está cadastrado");
+
+            var client = _clientRepository.GetByDocument(document);
+
+            return new ClientDto()
+            {
+                Name = client.Name,
+                Document = client.Document,
+                Account = client.Account,
+                Active = client.Active
+            };
+        }
+
+        public ClientDto GetClientByAccountNumber(string accountNumber)
+        {
+            if (!IsAccountNumberValid(accountNumber))
+                throw new Exception("Número da conta inválido. Deve seguir o padrão ####-#");
+
+            var client = _clientRepository.GetByAccountNumber(accountNumber);
+
+            if (client is default(Client))
+                throw new Exception("Número de conta inexistente.");
+
+            return new ClientDto()
+            {
+                Name = client.Name,
+                Document = client.Document,
+                Account = client.Account,
+                Active = client.Active
+            };
         }
 
         private Client CreateValidAccountNumber(string name, string document)
@@ -61,6 +101,14 @@ namespace AdaCredit.Services
         private bool IsDocumentAlreadyUsed(string document)
         {
             return _clientRepository.GetByDocument(document) is default(Client) ? false : true;
+        }
+
+        private bool IsAccountNumberValid(string accountNumber)
+        {
+            string pattern = @"^[0-9]{5}-[0-9]{1}$";
+
+            Regex reg = new Regex(pattern);
+            return reg.IsMatch(accountNumber);
         }
     }
 }

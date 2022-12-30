@@ -44,17 +44,17 @@ namespace AdaCredit.Services
             return loggedInUser;
         }
 
+        public void UpdatePasswordFirstLogin(Employee loggedInUser, string password)
+        {
+            loggedInUser.UpdateFirstLogin();
+            _employeeService.UpdatePassword(password);
+        }
+
         private bool ValidatePassword(Employee employee, string password)
         {
             var hashedPassword = BC.HashPassword(password, employee.Salt);
 
             return hashedPassword == employee.PasswordHash;
-        }
-
-        public void UpdatePasswordFirstLogin(Employee loggedInUser, string password)
-        {
-            loggedInUser.UpdateFirstLogin();
-            _employeeService.UpdatePassword(password);
         }
     }
 }
