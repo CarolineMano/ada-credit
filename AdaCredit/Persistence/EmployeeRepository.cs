@@ -42,15 +42,6 @@ namespace AdaCredit.Persistence
 
         public List<Employee> GetAllActiveEmployees()
         {
-            // var activeEmployees = new List<Employee>();
-
-            // foreach (var employee in _employees)
-            // {
-            //     activeEmployees.Add(employee);
-            // }
-
-            // return activeEmployees.AsReadOnly().ToList();
-
             return _employees.Where(e => e.Active == true).ToList();
         }
 

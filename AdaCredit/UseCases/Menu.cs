@@ -11,7 +11,7 @@ namespace AdaCredit.UseCases
         public static void Show(string[] args)
         {
             var subMenuClient = new ConsoleMenu(args, level: 1)
-            .Add("Cadastrar novo cliente", () => SomeAction("Sub_One"))
+            .Add("Cadastrar novo cliente", () => AddNewClient.Show())
             .Add("Consultar dados de cliente", () => SomeAction("Sub_Two"))
             .Add("Alterar cadastro de cliente", () => SomeAction("Sub_Three"))
             .Add("Desativar cadastro de cliente", () => SomeAction("Sub_Four"))
