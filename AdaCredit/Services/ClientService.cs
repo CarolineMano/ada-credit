@@ -53,7 +53,7 @@ namespace AdaCredit.Services
         public ClientDto GetClientByAccountNumber(string accountNumber)
         {
             if (!IsAccountNumberValid(accountNumber))
-                throw new Exception("Número da conta inválido. Deve seguir o padrão ####-#");
+                throw new Exception("Número da conta inválido. Deve seguir o padrão #####-#");
 
             var client = _clientRepository.GetByAccountNumber(accountNumber);
 
@@ -67,6 +67,22 @@ namespace AdaCredit.Services
                 Account = client.Account,
                 Active = client.Active
             };
+        }
+
+        public bool DeleteClient(string document)
+        {
+            if (!IsDocumentValid(document))
+                throw new Exception("CPF informado não é válido");
+
+            var client = _clientRepository.GetByDocument(document);
+
+            if (!client.Active)
+                throw new Exception("Cliente informado já está inativo");
+
+            client.Disable();
+            _clientRepository.Save();
+
+            return true;
         }
 
         private Client CreateValidAccountNumber(string name, string document)

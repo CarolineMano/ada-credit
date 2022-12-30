@@ -27,7 +27,7 @@ namespace AdaCredit.UseCases
             .Add("Cadastrar novo cliente", () => AddNewClient.Show())
             .Add("Consultar dados de cliente", subMenuGetClient.Show)
             .Add("Alterar cadastro de cliente", () => SomeAction("Sub_Three"))
-            .Add("Desativar cadastro de cliente", () => SomeAction("Sub_Four"))
+            .Add("Desativar cadastro de cliente", () => DeleteClient.Show())
             .Add("Voltar", ConsoleMenu.Close)
             .Configure(config =>
             {

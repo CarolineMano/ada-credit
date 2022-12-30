@@ -16,6 +16,7 @@ namespace AdaCredit.UseCases
             try
             {
                 Console.Clear();
+                Console.WriteLine("***Desativar Funcionário***");
 
                 var activeEmployees = _employeeService.GetAllActiveEmployees();
                 ShowEmployees(activeEmployees);
