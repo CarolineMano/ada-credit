@@ -52,10 +52,22 @@ namespace AdaCredit.UseCases
                 config.WriteBreadcrumbAction = titles => Console.WriteLine(string.Join(" / ", titles));
             });
 
+            var subMenuTransaction = new ConsoleMenu(args, level: 1)
+            .Add("Processar transações (Reconciliação Bancária)", () => ProcessTransactions.Show())
+            .Add("Voltar", ConsoleMenu.Close)
+            .Configure(config =>
+            {
+                config.Selector = "--> ";
+                config.EnableFilter = true;
+                config.Title = "Transações";
+                config.EnableBreadcrumb = true;
+                config.WriteBreadcrumbAction = titles => Console.WriteLine(string.Join(" / ", titles));
+            });
+
             var menu = new ConsoleMenu(args, level: 0)
               .Add("Clientes", subMenuClient.Show)
               .Add("Funcionários", subMenuEmployee.Show)
-              .Add("Change me", (thisMenu) => thisMenu.CurrentItem.Name = "I am changed!")
+              .Add("Transações", subMenuTransaction.Show)
               .Add("Close", ConsoleMenu.Close)
               .Add("Action then Close", (thisMenu) => { SomeAction("Close"); thisMenu.CloseMenu(); })
               .Add("Exit", () => Environment.Exit(0))

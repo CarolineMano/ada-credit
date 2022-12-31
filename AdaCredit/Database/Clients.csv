@@ -1,0 +1,3 @@
+name,accountNumber,active,document,email,balance
+Carol,54740-3,True,12345678911,carol@email.com,1000000.0
+Hope,54720-3,True,98765432111,hope@email.com,2000000.0

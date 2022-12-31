@@ -28,6 +28,7 @@ namespace AdaCredit.Persistence
 
         private static void Initialize()
         {
+            // FIXME ajustar diretório 
             try
             {
                 using (var reader = new StreamReader("../AdaCredit/Database/Clients.csv"))

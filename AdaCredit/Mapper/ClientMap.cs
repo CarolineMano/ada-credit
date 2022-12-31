@@ -16,6 +16,7 @@ namespace AdaCredit.Mapper
             Map(m => m.Document).Name("document");
             Map(m => m.Account.Number).Name("accountNumber");
             Map(m => m.Email).Name("email");
+            Map(m => m.Balance).Name("balance");
         }
     }
 }

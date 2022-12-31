@@ -18,6 +18,7 @@ namespace AdaCredit.Persistence
 
         static EmployeeRepository()
         {
+            // FIXME Ajustar caso não haja o arquivo
             _config = new CsvConfiguration(CultureInfo.InvariantCulture)
             {
                 HeaderValidated = null

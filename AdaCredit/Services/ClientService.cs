@@ -50,7 +50,8 @@ namespace AdaCredit.Services
                 Document = client.Document,
                 Account = client.Account,
                 Active = client.Active,
-                Email = client.Email
+                Email = client.Email,
+                Balance = client.Balance
             };
         }
 
@@ -70,7 +71,8 @@ namespace AdaCredit.Services
                 Document = client.Document,
                 Account = client.Account,
                 Active = client.Active,
-                Email = client.Email
+                Email = client.Email,
+                Balance = client.Balance
             };
         }
 
