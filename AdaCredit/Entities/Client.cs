@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using AdaCredit.Enum;
@@ -21,12 +22,13 @@ namespace AdaCredit.Entities
             Balance = 0M;
         }
 
-        public Client(string name, string document, string accountNumber, bool active, string email, string balance) : base(name, active)
+        public Client(string name, string document, string accountNumber, bool active, string email, decimal balance) : base(name, active)
         {
             Document = document;
             Account = new Account(accountNumber);
             Email = email;
-            Balance = Decimal.Parse(balance);
+            // Balance = Decimal.Parse(balance, NumberStyles.AllowDecimalPoint);
+            Balance = balance;
         }
 
         public bool UpdateBalance(decimal value, TransactionFlow transactionFlow)

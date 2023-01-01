@@ -13,8 +13,6 @@ namespace AdaCredit.Persistence
     public class TransactionRepository
     {
         private static CsvConfiguration _config;
-        // private List<Transaction> _transactionsCurrentFile;
-        // private Stack<string> _fileNames;
         private string _desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
         public TransactionRepository()
@@ -23,8 +21,6 @@ namespace AdaCredit.Persistence
             {
                 HasHeaderRecord = false
             };
-
-            // _fileNames = GetFileNames();
         }
 
         public List<Transaction> GetTransactionsFromFile(string fileName)
@@ -32,7 +28,6 @@ namespace AdaCredit.Persistence
             using (var reader = new StreamReader(@$"{_desktopPath}\Transactions\Pending\{fileName}"))
             using (var csv = new CsvReader(reader, _config))
             {
-                // csv.Context.RegisterClassMap<TransactionMap>();
                 return csv.GetRecords<Transaction>().ToList();
             }
         }
@@ -69,7 +64,7 @@ namespace AdaCredit.Persistence
             }
         }
 
-        public void SaveFailed(List<Transaction> transactionsFailed, string fileName)
+        public void SaveFailed(List<TransactionFailed> transactionsFailed, string fileName)
         {
             var failedFolder = @$"{_desktopPath}\Transactions\Failed";
             bool folderExists = Directory.Exists(failedFolder);
@@ -80,8 +75,8 @@ namespace AdaCredit.Persistence
             using (var writer = new StreamWriter(@$"{failedFolder}\{fileName}-failed.csv"))
             using (var csv = new CsvWriter(writer, _config))
             {
-                csv.Context.RegisterClassMap<TransactionMap>();
-                csv.WriteRecords<Transaction>(transactionsFailed);
+                csv.Context.RegisterClassMap<TransactionFailedMap>();
+                csv.WriteRecords<TransactionFailed>(transactionsFailed);
             }
         }
     }
