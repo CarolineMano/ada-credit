@@ -48,9 +48,9 @@ namespace AdaCredit.Services
                     else if (transaction.TransactionType == TransactionType.TEF)
                         ProcessTef(transaction, clientOrigin, clientRecipient);
                     else if (transaction.TransactionType == TransactionType.DOC)
-                        ProcessDoc(transaction, clientOrigin, clientRecipient, transactionDate);// TODO Testar DOC
+                        ProcessDoc(transaction, clientOrigin, clientRecipient, transactionDate);
                     else if (transaction.TransactionType == TransactionType.TED)
-                        ProcessTed(transaction, clientOrigin, clientRecipient, transactionDate);// TODO Testar TED
+                        ProcessTed(transaction, clientOrigin, clientRecipient, transactionDate);
 
                     transactionsCompleted.Add(transaction);
                 }
@@ -104,9 +104,11 @@ namespace AdaCredit.Services
         {
             var fare = 0M;
 
-            if (transactionDate.CompareTo(new DateTime(2022, 12, 01)) < 0)
+            if (transactionDate.CompareTo(new DateTime(2022, 11, 30)) > 0)
+            {
                 fare = transaction.Value * 0.01M < 5m ? transaction.Value * 0.01M : 5M;
                 fare += 1M;
+            }
 
             if (transaction.TransactionFlow == TransactionFlow.Payment)
             {

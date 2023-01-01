@@ -27,7 +27,6 @@ namespace AdaCredit.Entities
             Document = document;
             Account = new Account(accountNumber);
             Email = email;
-            // Balance = Decimal.Parse(balance, NumberStyles.AllowDecimalPoint);
             Balance = balance;
         }
 
