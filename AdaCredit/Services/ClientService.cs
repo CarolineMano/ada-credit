@@ -44,15 +44,7 @@ namespace AdaCredit.Services
 
             var client = _clientRepository.GetByDocument(document);
 
-            return new ClientDto()
-            {
-                Name = client.Name,
-                Document = client.Document,
-                Account = client.Account,
-                Active = client.Active,
-                Email = client.Email,
-                Balance = client.Balance
-            };
+            return new ClientDto(client);
         }
 
         public ClientDto GetClientByAccountNumber(string accountNumber)
@@ -65,15 +57,33 @@ namespace AdaCredit.Services
             if (client is default(Client))
                 throw new Exception("Número de conta inexistente.");
 
-            return new ClientDto()
+            return new ClientDto(client);
+        }
+
+        public List<ClientDto> GetAllActiveClients()
+        {
+            var clientsDto = new List<ClientDto>();
+            var clients = _clientRepository.GetAllActive();
+
+            foreach (var client in clients)
             {
-                Name = client.Name,
-                Document = client.Document,
-                Account = client.Account,
-                Active = client.Active,
-                Email = client.Email,
-                Balance = client.Balance
-            };
+                clientsDto.Add(new ClientDto(client));
+            }
+
+            return clientsDto;
+        }
+
+        public List<ClientDto> GetAllInactiveClients()
+        {
+            var clientsDto = new List<ClientDto>();
+            var clients = _clientRepository.GetAllInactive();
+
+            foreach (var client in clients)
+            {
+                clientsDto.Add(new ClientDto(client));
+            }
+
+            return clientsDto;
         }
 
         public bool DeleteClient(string document)

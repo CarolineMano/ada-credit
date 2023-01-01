@@ -59,6 +59,16 @@ namespace AdaCredit.Persistence
             return _clients.FirstOrDefault(c => c.Document == document);
         }
 
+        public List<Client> GetAllActive()
+        {
+            return _clients.Where(c => c.Active == true).ToList();
+        }
+
+        public List<Client> GetAllInactive()
+        {
+            return _clients.Where(c => c.Active == false).ToList();
+        }
+
         public void AddNewClient(Client client)
         {
             _clients.Add(client);

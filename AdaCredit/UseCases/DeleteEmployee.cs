@@ -41,7 +41,7 @@ namespace AdaCredit.UseCases
             Console.WriteLine("****Funcionários ativos****");
             foreach (var employee in employeeDtos)
             {
-                Console.WriteLine($"Nome: {employee.Name} | Username: {employee.Username}");
+                Console.WriteLine($"Nome: {employee.Name} | Username: {employee.Username} | Último Login: {employee.LastLoggedIn}");
             }
         }
     }

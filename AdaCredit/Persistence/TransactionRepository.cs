@@ -4,6 +4,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using AdaCredit.Entities;
+using AdaCredit.Enum;
 using AdaCredit.Mapper;
 using CsvHelper;
 using CsvHelper.Configuration;
@@ -23,20 +24,30 @@ namespace AdaCredit.Persistence
             };
         }
 
-        public List<Transaction> GetTransactionsFromFile(string fileName)
+        public List<Transaction> GetTransactionsFromFile(TransactionFolder transactionFolder, string fileName)
         {
-            using (var reader = new StreamReader(@$"{_desktopPath}\Transactions\Pending\{fileName}"))
+            using (var reader = new StreamReader(@$"{_desktopPath}\Transactions\{transactionFolder}\{fileName}"))
             using (var csv = new CsvReader(reader, _config))
             {
                 return csv.GetRecords<Transaction>().ToList();
             }
         }
 
-        public Stack<String> GetFileNames()
+        public List<TransactionFailed> GetFailedTransactionsFromFile(TransactionFolder transactionFolder, string fileName)
+        {
+            using (var reader = new StreamReader(@$"{_desktopPath}\Transactions\{transactionFolder}\{fileName}"))
+            using (var csv = new CsvReader(reader, _config))
+            {
+                var list = csv.GetRecords<TransactionFailed>().ToList();
+                return list;
+            }
+        }
+
+        public Stack<String> GetFileNames(TransactionFolder transactionFolder)
         {
             var fileNames = new Stack<String>();
 
-            DirectoryInfo directoryInfo = new DirectoryInfo(@$"{_desktopPath}\Transactions\Pending");
+            DirectoryInfo directoryInfo = new DirectoryInfo(@$"{_desktopPath}\Transactions\{transactionFolder}");
 
             FileInfo[] files = directoryInfo.GetFiles("*.csv");
 
@@ -50,6 +61,7 @@ namespace AdaCredit.Persistence
 
         public void SaveCompleted(List<Transaction> transactionsCompleted, string fileName)
         {
+            fileName = fileName.Split(".csv")[0];
             var completedFolder = @$"{_desktopPath}\Transactions\Completed";
             bool folderExists = Directory.Exists(completedFolder);
 
@@ -66,6 +78,7 @@ namespace AdaCredit.Persistence
 
         public void SaveFailed(List<TransactionFailed> transactionsFailed, string fileName)
         {
+            fileName = fileName.Split(".csv")[0];
             var failedFolder = @$"{_desktopPath}\Transactions\Failed";
             bool folderExists = Directory.Exists(failedFolder);
 

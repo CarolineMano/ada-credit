@@ -44,10 +44,10 @@ namespace AdaCredit.Services
             return loggedInUser;
         }
 
-        public void UpdatePasswordFirstLogin(Employee loggedInUser, string password)
+        public void UpdatePasswordFirstLogin(Employee loggedInUser)
         {
             loggedInUser.UpdateFirstLogin();
-            _employeeService.UpdatePassword(password);
+            _employeeRepository.Save();
         }
 
         private bool ValidatePassword(Employee employee, string password)

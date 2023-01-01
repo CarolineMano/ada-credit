@@ -64,13 +64,28 @@ namespace AdaCredit.UseCases
                 config.WriteBreadcrumbAction = titles => Console.WriteLine(string.Join(" / ", titles));
             });
 
+            var subMenuReports = new ConsoleMenu(args, level: 1)
+            .Add("Listar clientes ativos", () => ListActiveClients.Show())
+            .Add("Listar clientes inativos", () => ListInactiveClients.Show())
+            .Add("Listar funcionários ativos", () => ListAllEmployees.Show())
+            .Add("Listar transações com falha", () => ListFailedTransactions.Show())
+            .Add("Voltar", ConsoleMenu.Close)
+            .Configure(config =>
+            {
+                config.Selector = "--> ";
+                config.EnableFilter = true;
+                config.Title = "Relatórios";
+                config.EnableBreadcrumb = true;
+                config.WriteBreadcrumbAction = titles => Console.WriteLine(string.Join(" / ", titles));
+            });
+
             var menu = new ConsoleMenu(args, level: 0)
               .Add("Clientes", subMenuClient.Show)
               .Add("Funcionários", subMenuEmployee.Show)
               .Add("Transações", subMenuTransaction.Show)
-              .Add("Close", ConsoleMenu.Close)
-              .Add("Action then Close", (thisMenu) => { SomeAction("Close"); thisMenu.CloseMenu(); })
-              .Add("Exit", () => Environment.Exit(0))
+              .Add("Relatórios", subMenuReports.Show)
+              .Add("Voltar", () => Login.Show())
+              .Add("Sair", () => Environment.Exit(0))
               .Configure(config =>
               {
                   config.Selector = "--> ";

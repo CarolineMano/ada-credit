@@ -13,18 +13,32 @@ namespace AdaCredit.Services
         private static ClientRepository _clientRepository = new ClientRepository();
         private Stack<string> _fileNames = new Stack<string>();
 
-        public void ProcessTransactions()
+        public List<TransactionFailed> GetFailedTransactions(TransactionFolder transactionFolder)
         {
-            _fileNames = _transactionRepository.GetFileNames();
+            _fileNames = _transactionRepository.GetFileNames(transactionFolder);
+            var transactionsFromFolder = new List<TransactionFailed>();
 
             do
             {
-                ProcessTransactionFile(_fileNames.Peek());
+                transactionsFromFolder.AddRange((IEnumerable<TransactionFailed>)_transactionRepository.GetFailedTransactionsFromFile(transactionFolder, _fileNames.Peek()));
+                _fileNames.Pop();
+            } while (_fileNames.Count != 0);
+
+            return transactionsFromFolder;
+        } 
+
+        public void ProcessTransactions()
+        {
+            _fileNames = _transactionRepository.GetFileNames(TransactionFolder.Pending);
+
+            do
+            {
+                ProcessTransactionFile(TransactionFolder.Pending, _fileNames.Peek());
                 _fileNames.Pop();
             } while (_fileNames.Count != 0);
         }
 
-        private void ProcessTransactionFile(string fileName)
+        private void ProcessTransactionFile(TransactionFolder transactionFolder, string fileName)
         {
             var transactionsPending = new List<Transaction>();
             var transactionsCompleted = new List<Transaction>();
@@ -33,7 +47,7 @@ namespace AdaCredit.Services
             Client? clientRecipient;
             DateTime transactionDate;
 
-            transactionsPending = _transactionRepository.GetTransactionsFromFile(fileName);
+            transactionsPending = _transactionRepository.GetTransactionsFromFile(transactionFolder, fileName);
 
             foreach (var transaction in transactionsPending)
             {

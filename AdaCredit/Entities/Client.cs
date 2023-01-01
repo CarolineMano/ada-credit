@@ -44,5 +44,11 @@ namespace AdaCredit.Entities
             Balance -= value;
             return true;
         }
+
+        public new void Disable()
+        {
+            base.Disable();
+            Balance = 0M;
+        }
     }
 }

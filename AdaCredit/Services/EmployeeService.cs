@@ -72,11 +72,7 @@ namespace AdaCredit.Services
 
             foreach (var employee in activeEmployees)
             {
-                activeEmployeesDto.Add(new EmployeeDto
-                {
-                    Name = employee.Name,
-                    Username = employee.Username
-                });
+                activeEmployeesDto.Add(new EmployeeDto(employee));
             }
             
             return activeEmployeesDto;

@@ -19,6 +19,7 @@ namespace AdaCredit.UseCases
                 do
                 {
                     Console.Clear();
+                    Console.WriteLine($"***Login***{Environment.NewLine}");
 
                     Console.Write("Digite o nome do usuário: ");
                     var username = Console.ReadLine();
@@ -40,14 +41,11 @@ namespace AdaCredit.UseCases
                     Console.Clear();
 
                     Console.WriteLine($"***Você deve trocar a senha padrão do usuário: {LoggedInUser.Username}***");
-                    Console.WriteLine("Digite a nova senha desejada: ");
-
-                    var password = Console.ReadLine();
-
-                    _loginService.UpdatePasswordFirstLogin(LoggedInUser, password);
-
-                    Console.WriteLine("Senha alterada com sucesso");
                     Console.ReadKey();
+
+                    UpdateEmployeePassword.Show();
+
+                    _loginService.UpdatePasswordFirstLogin(LoggedInUser);
                 }
             }
             catch (Exception ex)

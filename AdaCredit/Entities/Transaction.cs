@@ -4,15 +4,15 @@ namespace AdaCredit.Entities
 {
     public sealed class Transaction
     {
-        public string OriginBankId { get; private set; }
-        public string OriginBankBranch { get; private set; }
-        public string OriginBankAccountNumber { get; private set; }
-        public string RecipientBankId { get; private set; }
-        public string RecipientBankBranch { get; private set; }
-        public string RecipientBankAccountNumber { get; private set; }
-        public TransactionType TransactionType { get; private set; }
-        public TransactionFlow TransactionFlow { get; private set; }
-        public decimal Value { get; private set; }
+        public string OriginBankId { get; set; }
+        public string OriginBankBranch { get; set; }
+        public string OriginBankAccountNumber { get; set; }
+        public string RecipientBankId { get; set; }
+        public string RecipientBankBranch { get; set; }
+        public string RecipientBankAccountNumber { get; set; }
+        public TransactionType TransactionType { get; set; }
+        public TransactionFlow TransactionFlow { get; set; }
+        public decimal Value { get; set; }
         
         public Transaction(string originBankId, string originBankBranch, string originBankAccountNumber, string recipientBankId, string recipientBankBranch, string recipientBankAccountNumber, string transactionType, int transactionFlow, decimal value)
         {
