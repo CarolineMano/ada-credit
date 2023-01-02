@@ -60,6 +60,11 @@ namespace AdaCredit.Persistence
             return fileNames;
         }
 
+        public void DeleteFile(string fileName, TransactionFolder transactionFolder)
+        {
+            System.IO.File.Delete(@$"{_desktopPath}\Transactions\{transactionFolder}\{fileName}");
+        }
+
         public void SaveCompleted(List<Transaction> transactionsCompleted, string fileName)
         {
             fileName = fileName.Split(".csv")[0];

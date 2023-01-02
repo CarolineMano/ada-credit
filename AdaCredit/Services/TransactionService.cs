@@ -34,7 +34,7 @@ namespace AdaCredit.Services
             do
             {
                 ProcessTransactionFile(TransactionFolder.Pending, _fileNames.Peek());
-                _fileNames.Pop();
+                _transactionRepository.DeleteFile(_fileNames.Pop(), TransactionFolder.Pending);
             } while (_fileNames.Count != 0);
         }
 
