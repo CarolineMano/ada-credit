@@ -38,8 +38,7 @@ namespace AdaCredit.Persistence
             using (var reader = new StreamReader(@$"{_desktopPath}\Transactions\{transactionFolder}\{fileName}"))
             using (var csv = new CsvReader(reader, _config))
             {
-                var list = csv.GetRecords<TransactionFailed>().ToList();
-                return list;
+                return csv.GetRecords<TransactionFailed>().ToList();
             }
         }
 
@@ -50,10 +49,12 @@ namespace AdaCredit.Persistence
             DirectoryInfo directoryInfo = new DirectoryInfo(@$"{_desktopPath}\Transactions\{transactionFolder}");
 
             FileInfo[] files = directoryInfo.GetFiles("*.csv");
+            
+            var fileListSorted = files.Select(f => f.Name.Split("-")).OrderByDescending(f => f.Last()).ToList();
 
-            foreach (var file in files)
+            foreach (var file in fileListSorted)
             {
-                fileNames.Push(file.Name);
+                fileNames.Push(String.Join("-", file));
             }
 
             return fileNames;
