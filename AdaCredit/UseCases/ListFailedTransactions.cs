@@ -13,7 +13,6 @@ namespace AdaCredit.UseCases
         {
             try
             {
-                // FIXME Necessário corrigir mapeamento do transaction failed
                 Console.Clear();
 
                 Console.WriteLine($"***Transações com falha***{Environment.NewLine}");
@@ -38,19 +37,21 @@ namespace AdaCredit.UseCases
 
                 foreach (var transaction in transactions)
                 {
-                    table.AddRow(transaction.Transaction.OriginBankId, 
-                                transaction.Transaction.OriginBankBranch,
-                                transaction.Transaction.OriginBankAccountNumber,
-                                transaction.Transaction.RecipientBankId,
-                                transaction.Transaction.RecipientBankBranch,
-                                transaction.Transaction.RecipientBankAccountNumber,
-                                transaction.Transaction.TransactionType,
-                                transaction.Transaction.TransactionFlow,
-                                transaction.Transaction.Value.ToString("C"),
-                                transaction.ErrorDetail);
+                    // table.AddRow(transaction.OriginBankId, 
+                    //             transaction.OriginBankBranch,
+                    //             transaction.OriginBankAccountNumber,
+                    //             transaction.RecipientBankId,
+                    //             transaction.RecipientBankBranch,
+                    //             transaction.RecipientBankAccountNumber,
+                    //             transaction.TransactionType,
+                    //             transaction.TransactionFlow,
+                    //             transaction.Value.ToString("C"),
+                    //             transaction.ErrorDetail);
+                    Console.WriteLine("********************");
+                    Console.WriteLine(transaction);
                 }
 
-                Console.Write(table.ToString());
+                // Console.Write(table.ToString());
 
             }
             catch (Exception ex)

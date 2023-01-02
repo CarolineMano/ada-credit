@@ -70,7 +70,7 @@ namespace AdaCredit.Services
                 }
                 catch (Exception ex)
                 {
-                    transactionsFailed.Add(new TransactionFailed(transaction, ex.Message));
+                    transactionsFailed.Add(new TransactionFailed(transaction.OriginBankId, transaction.OriginBankBranch, transaction.OriginBankAccountNumber, transaction.RecipientBankId, transaction.RecipientBankBranch, transaction.RecipientBankAccountNumber, transaction.TransactionType, transaction.TransactionFlow, transaction.Value, ex.Message));
                 }
             }
 

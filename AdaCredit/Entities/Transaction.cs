@@ -2,19 +2,19 @@ using AdaCredit.Enum;
 
 namespace AdaCredit.Entities
 {
-    public sealed class Transaction
+    public class Transaction
     {
-        public string OriginBankId { get; set; }
-        public string OriginBankBranch { get; set; }
-        public string OriginBankAccountNumber { get; set; }
-        public string RecipientBankId { get; set; }
-        public string RecipientBankBranch { get; set; }
-        public string RecipientBankAccountNumber { get; set; }
-        public TransactionType TransactionType { get; set; }
-        public TransactionFlow TransactionFlow { get; set; }
-        public decimal Value { get; set; }
+        public string OriginBankId { get; protected set; }
+        public string OriginBankBranch { get; protected set; }
+        public string OriginBankAccountNumber { get; protected set; }
+        public string RecipientBankId { get; protected set; }
+        public string RecipientBankBranch { get; protected set; }
+        public string RecipientBankAccountNumber { get; protected set; }
+        public TransactionType TransactionType { get; protected set; }
+        public TransactionFlow TransactionFlow { get; protected set; }
+        public decimal Value { get; protected set; }
         
-        public Transaction(string originBankId, string originBankBranch, string originBankAccountNumber, string recipientBankId, string recipientBankBranch, string recipientBankAccountNumber, string transactionType, int transactionFlow, decimal value)
+        public Transaction(string originBankId, string originBankBranch, string originBankAccountNumber, string recipientBankId, string recipientBankBranch, string recipientBankAccountNumber, TransactionType transactionType, TransactionFlow transactionFlow, decimal value)
         {
             OriginBankId = originBankId;
             OriginBankBranch = originBankBranch;
@@ -22,8 +22,8 @@ namespace AdaCredit.Entities
             RecipientBankId = recipientBankId;
             RecipientBankBranch = recipientBankBranch;
             RecipientBankAccountNumber = recipientBankAccountNumber;
-            TransactionType = Enum.TransactionType.Parse<TransactionType>(transactionType);
-            TransactionFlow = (TransactionFlow)transactionFlow;
+            TransactionType = transactionType;
+            TransactionFlow = transactionFlow;
             Value = value;
         }
     }
