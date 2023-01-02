@@ -28,10 +28,9 @@ namespace AdaCredit.Persistence
 
         private static void Initialize()
         {
-            // FIXME ajustar diretório 
             try
             {
-                using (var reader = new StreamReader("../AdaCredit/Database/Clients.csv"))
+                using (var reader = new StreamReader(@$"Database\Clients.csv"))
                 using (var csv = new CsvReader(reader, _config))
                 {
                     _clients = csv.GetRecords<Client>().ToList();
@@ -39,7 +38,7 @@ namespace AdaCredit.Persistence
             }
             catch (System.Exception)
             {
-                using (var writer = new StreamWriter("../AdaCredit/Database/Clients.csv"))
+                using (var writer = new StreamWriter(@$"Database\Clients.csv"))
                 using (var csv = new CsvWriter(writer, _config))
                 {
                     csv.Context.RegisterClassMap<ClientMap>();
@@ -81,7 +80,7 @@ namespace AdaCredit.Persistence
 
         public void Save()
         {
-            using (var writer = new StreamWriter("../AdaCredit/Database/Clients.csv"))
+            using (var writer = new StreamWriter(@$"Database\Clients.csv"))
             using (var csv = new CsvWriter(writer, _config))
             {
                 csv.Context.RegisterClassMap<ClientMap>();

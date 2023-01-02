@@ -18,16 +18,41 @@ namespace AdaCredit.Persistence
 
         static EmployeeRepository()
         {
-            // FIXME Ajustar caso não haja o arquivo
             _config = new CsvConfiguration(CultureInfo.InvariantCulture)
             {
                 HeaderValidated = null
             };
 
-            using (var reader = new StreamReader("../AdaCredit/Database/Employees.csv"))
-            using (var csv = new CsvReader(reader, _config))
+            Initialize();
+        }
+
+        private static void Initialize()
+        {
+            try
             {
-                _employees = csv.GetRecords<Employee>().ToList();
+                using (var reader = new StreamReader(@$"Database\Employees.csv"))
+                using (var csv = new CsvReader(reader, _config))
+                {
+                    _employees = csv.GetRecords<Employee>().ToList();
+                }
+            }
+            catch (System.Exception)
+            {
+                var repositoryFolder = @$"\Database";
+                bool folderExists = Directory.Exists(repositoryFolder);
+
+                if (!folderExists)
+                    Directory.CreateDirectory(repositoryFolder);
+
+                _employees = new List<Employee>();
+                _employees.Add(new Employee("Admin", "user"));
+
+                using (var writer = new StreamWriter(@$"Database\Employees.csv"))
+                using (var csv = new CsvWriter(writer, _config))
+                {
+                    csv.Context.RegisterClassMap<EmployeeMap>();
+                    csv.WriteHeader<Employee>();
+                }
             }
         }
 
@@ -48,7 +73,7 @@ namespace AdaCredit.Persistence
 
         public void Save()
         {
-            using (var writer = new StreamWriter("../AdaCredit/Database/Employees.csv"))
+            using (var writer = new StreamWriter(@$"Database\Employees.csv"))
             using (var csv = new CsvWriter(writer, _config))
             {
                 csv.Context.RegisterClassMap<EmployeeMap>();

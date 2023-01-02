@@ -8,6 +8,7 @@ namespace AdaCredit
     {
         public static void Main(string[] args)
         {
+            HomePage.Show();
             Login.Show();
             Menu.Show(args);
         }

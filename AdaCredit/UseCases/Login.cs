@@ -1,6 +1,5 @@
 using System;
 using AdaCredit.Entities;
-using AdaCredit.Persistence;
 using AdaCredit.Services;
 
 namespace AdaCredit.UseCases
@@ -8,8 +7,8 @@ namespace AdaCredit.UseCases
     public static class Login
     {
         private static LoginService _loginService = new LoginService();
-        private static EmployeeService _employeeService = new EmployeeService();
         public static Employee? LoggedInUser { get; private set; }
+
         public static void Show()
         {
             var loggedIn = false;
@@ -40,7 +39,7 @@ namespace AdaCredit.UseCases
                 {
                     Console.Clear();
 
-                    Console.WriteLine($"***Você deve trocar a senha padrão do usuário: {LoggedInUser.Username}***");
+                    Console.WriteLine($"***Você precisará trocar a senha padrão do usuário: {LoggedInUser.Username}***");
                     Console.ReadKey();
 
                     UpdateEmployeePassword.Show();
@@ -52,6 +51,7 @@ namespace AdaCredit.UseCases
             {
                 Console.WriteLine(ex.Message);
                 Console.ReadKey();
+                Login.Show();
             }
         }
     }

@@ -37,6 +37,13 @@ namespace AdaCredit.Services
                 return default(Employee);
             }
 
+            if (loggedInUser.Active == false)
+            {
+                Console.WriteLine("Usuário informado está inativo.");
+                Console.ReadKey();
+                return default(Employee);
+            }
+
             loggedInUser.UpdateLastLoggedIn();
 
             _employeeRepository.Save();

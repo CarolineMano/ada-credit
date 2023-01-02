@@ -93,6 +93,9 @@ namespace AdaCredit.Services
 
             var client = _clientRepository.GetByDocument(document);
 
+            if (client is default(Client))
+                throw new Exception("Não há cliente com o CPF informado.");
+
             if (!client.Active)
                 throw new Exception("Cliente informado já está inativo");
 
