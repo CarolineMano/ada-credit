@@ -1,7 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AdaCredit.Enum;
 
 namespace AdaCredit.Entities
@@ -17,6 +14,7 @@ namespace AdaCredit.Entities
 
         public override string ToString()
         {
+            var transactionFlow = this.TransactionFlow == TransactionFlow.Payment ? "Débito/Saída" : "Crédito/Entrada";
             return $"Banco de Origem: {this.OriginBankId}{Environment.NewLine}" +
                     $"Agência de Origem: {this.OriginBankBranch}{Environment.NewLine}" +
                     $"Conta de Origem: {this.OriginBankAccountNumber}{Environment.NewLine}" +
@@ -24,7 +22,7 @@ namespace AdaCredit.Entities
                     $"Agência de Destino: {this.RecipientBankBranch}{Environment.NewLine}" +
                     $"Conta de Destino: {this.RecipientBankAccountNumber}{Environment.NewLine}" +
                     $"Tipo de Transação: {this.TransactionType}{Environment.NewLine}" +
-                    $"Fluxo da Transação: {this.TransactionFlow}{Environment.NewLine}" +
+                    $"Fluxo da Transação: {transactionFlow}{Environment.NewLine}" +
                     $"Valor da Transação: {this.Value.ToString("C")}{Environment.NewLine}" +
                     $"Detalhe do Erro: {this.ErrorDetail}{Environment.NewLine}";
         }
