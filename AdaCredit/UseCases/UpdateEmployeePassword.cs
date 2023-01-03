@@ -27,6 +27,7 @@ namespace AdaCredit.UseCases
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
+                UpdateEmployeePassword.Show();
             }
             Console.ReadKey();
         }
