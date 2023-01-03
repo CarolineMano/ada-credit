@@ -17,7 +17,7 @@ namespace AdaCredit.UseCases
                 Console.Clear();
                 Console.WriteLine("***Consultar Cliente por CPF***");
 
-                Console.Write("Digite o CPF do cliente desejado: ");
+                Console.Write("Digite o CPF do cliente desejado (apenas números): ");
                 var document = Console.ReadLine();
 
                 var client = _clientService.GetClientByDocument(document);

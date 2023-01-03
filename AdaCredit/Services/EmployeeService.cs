@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AdaCredit.Dtos;
 using AdaCredit.Entities;
 using AdaCredit.Persistence;
@@ -48,6 +46,9 @@ namespace AdaCredit.Services
 
             if (!employee.Active)
                 throw new Exception("Funcionário já desativado");
+
+            if (employee == Login.LoggedInUser)
+                throw new Exception("Não é possível excluir o usuário logado.");
 
             employee.Disable();
             _employeeRepository.Save();

@@ -17,8 +17,11 @@ namespace AdaCredit.UseCases
                 Console.Clear();
                 Console.WriteLine("***Atualizar cadastro de Cliente***");
 
-                Console.Write("Digite o CPF do cliente a ser atualizado: ");
+                Console.Write("Digite o CPF do cliente a ser atualizado (apenas números): ");
                 var document = Console.ReadLine();
+
+                if (_clientService.GetClientByDocument(document).Active == false)
+                    throw new Exception("O cliente informado está inativo.");
 
                 Console.WriteLine($"{Environment.NewLine}*DADOS DO CLIENTE*");
                 Console.WriteLine(_clientService.GetClientByDocument(document));

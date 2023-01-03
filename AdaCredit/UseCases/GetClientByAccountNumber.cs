@@ -17,7 +17,7 @@ namespace AdaCredit.UseCases
                 Console.Clear();
                 Console.WriteLine("***Consultar Cliente por Conta***");
 
-                Console.Write("Digite o número da conta do cliente desejado: ");
+                Console.Write("Digite o número da conta do cliente desejado (#####-#): ");
                 var accountNumber = Console.ReadLine();
 
                 var client = _clientService.GetClientByAccountNumber(accountNumber);

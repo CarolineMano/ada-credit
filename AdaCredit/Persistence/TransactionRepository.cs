@@ -49,6 +49,9 @@ namespace AdaCredit.Persistence
             DirectoryInfo directoryInfo = new DirectoryInfo(@$"{_desktopPath}\Transactions\{transactionFolder}");
 
             FileInfo[] files = directoryInfo.GetFiles("*.csv");
+
+            if (files.Count() == 0)
+                throw new Exception("Não há transações para processar.");
             
             var fileListSorted = files.Select(f => f.Name.Split("-")).OrderByDescending(f => f.Last()).ToList();
 

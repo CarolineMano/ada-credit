@@ -26,9 +26,14 @@ namespace AdaCredit.Dtos
 
         public override string ToString()
         {
-            return $"Nome: {Name} {Environment.NewLine}CPF: {Document}{Environment.NewLine}Email: {Email}" +
+            return $"Nome: {Name} {Environment.NewLine}CPF: {DocumentToString()}{Environment.NewLine}Email: {Email}" +
                 $"{Environment.NewLine}Agência: {Account.Branch} Conta: {Account.Number}{Environment.NewLine}Ativo: {(Active ? "Ativo" : "Inativo")}" +
                 $"{Environment.NewLine}Saldo: {Balance.ToString("C")}";
+        }
+
+        public string DocumentToString()
+        {
+            return $"{Document.Substring(0, 3)}.{Document.Substring(3, 3)}.{Document.Substring(6, 3)}-{Document.Substring(9, 2)}";
         }
     }
 }

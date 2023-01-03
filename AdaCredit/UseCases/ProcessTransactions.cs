@@ -1,7 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AdaCredit.Services;
 
 namespace AdaCredit.UseCases
@@ -12,13 +9,19 @@ namespace AdaCredit.UseCases
 
         public static void Show()
         {
-            Console.Clear();
+            try
+            {
+                Console.Clear();
+                Console.WriteLine("***Reconciliação Bancária***");
 
-            Console.WriteLine("***Reconciliação Bancária***");
+                _transactionService.ProcessTransactions();
 
-            _transactionService.ProcessTransactions();
-
-            Console.WriteLine("Processamento completo!");
+                Console.WriteLine("Processamento completo!");
+            }
+            catch (Exception ex)
+            {   
+                Console.WriteLine(ex.Message);
+            }
 
             Console.ReadKey();
         }
