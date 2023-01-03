@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AdaCredit.Dtos;
 using AdaCredit.Entities;
 using AdaCredit.Persistence;
+using DocumentValidator;
 
 namespace AdaCredit.Services
 {
@@ -146,6 +147,9 @@ namespace AdaCredit.Services
                 return false;
 
             if (!long.TryParse(document, out var documentValid))
+                return false;
+
+            if (!CpfValidation.Validate(document))
                 return false;
 
             return true;
