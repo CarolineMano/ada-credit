@@ -74,8 +74,11 @@ namespace AdaCredit.Services
                 }
             }
 
-            _transactionRepository.SaveCompleted(transactionsCompleted, fileName);
-            _transactionRepository.SaveFailed(transactionsFailed, fileName);
+            if (transactionsCompleted.Count != 0)
+                _transactionRepository.SaveCompleted(transactionsCompleted, fileName);
+            
+            if (transactionsFailed.Count != 0)
+                _transactionRepository.SaveFailed(transactionsFailed, fileName);
         }
 
         private void ProcessTef(Transaction transaction, Client originClient, Client recipientClient)
@@ -83,7 +86,7 @@ namespace AdaCredit.Services
             var fare = 0M;
 
             if (transaction.OriginBankId != transaction.RecipientBankId)
-                throw new Exception("Bancos diferentes, não é possível realizar TEF");
+                throw new Exception("Bancos diferentes - não é possível realizar TEF");
 
             if (transaction.TransactionFlow == TransactionFlow.Payment)
             {

@@ -37,21 +37,9 @@ namespace AdaCredit.UseCases
 
                 foreach (var transaction in transactions)
                 {
-                    // table.AddRow(transaction.OriginBankId, 
-                    //             transaction.OriginBankBranch,
-                    //             transaction.OriginBankAccountNumber,
-                    //             transaction.RecipientBankId,
-                    //             transaction.RecipientBankBranch,
-                    //             transaction.RecipientBankAccountNumber,
-                    //             transaction.TransactionType,
-                    //             transaction.TransactionFlow,
-                    //             transaction.Value.ToString("C"),
-                    //             transaction.ErrorDetail);
                     Console.WriteLine("********************");
                     Console.WriteLine(transaction);
                 }
-
-                // Console.Write(table.ToString());
 
             }
             catch (Exception ex)
