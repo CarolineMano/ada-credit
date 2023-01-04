@@ -9,7 +9,6 @@
 
   <ItemGroup>
     <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
-    <PackageReference Include="BetterConsoleTables" Version="1.1.3" />
     <PackageReference Include="DocsBRValidator" Version="1.3.1" />
     <Using Include="BCrypt.Net.BCrypt" Alias="BC" />
     <PackageReference Include="Bogus" Version="34.0.2" />
@@ -17,6 +16,10 @@
     <PackageReference Include="CsvHelper" Version="30.0.1" />
 
     <Content Include="Database\*.*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+
+    <Content Include="Transactions\Pending\*.*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
