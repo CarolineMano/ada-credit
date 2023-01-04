@@ -1,5 +1,9 @@
 <h1 align="center">Ada Credit</h1> 
 
+# :exclamation: Pré-Requisitos
+
+.NET 6 
+
 # :computer: Execução
 
 Para executar o programa, basta entrar no diretório da solução e realizar o build em debug ou release.
