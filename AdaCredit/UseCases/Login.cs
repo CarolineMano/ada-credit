@@ -41,7 +41,7 @@ namespace AdaCredit.UseCases
                     Console.Clear();
 
                     Console.WriteLine($"***Você precisará trocar a senha padrão do usuário: {LoggedInUser.Username}***");
-                    Task.Delay(2000).Wait();
+                    Task.Delay(1500).Wait();
 
                     UpdateEmployeePassword.Show();
 

@@ -20,7 +20,7 @@ namespace AdaCredit.UseCases
                 Console.Write("Digite o nome do cliente: ");
                 var name = Console.ReadLine();
 
-                Console.Write("Digite o CPF do cliente: ");
+                Console.Write("Digite o CPF do cliente (apenas números): ");
                 var document = Console.ReadLine();
 
                 Console.Write("Digite o email do cliente: ");
