@@ -11,7 +11,7 @@ dotnet build -c release
 No diretório de build, haverá dois outros diretórios: **Database** e **Transactions**. 
 
  - Database: Há um arquivo sample de clientes e outro de funcionários.
- - Transactions: Há um arquivo sample de transações antes do dia 30/11/2022 e outro após, já considerando as contas do sample de clientes.
+ - Transactions: Há um arquivo sample de transações antes do dia 30/11/2022 e outro após, já considerando as contas do sample de clientes. **Copiar esse diretório para o desktop**. 
 
 # :busts_in_silhouette: Login
 
